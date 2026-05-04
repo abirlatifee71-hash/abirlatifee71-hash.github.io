@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enamul Rais Latifee — Industrial Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg:       #07080f;
+    --surface:  #0e1120;
+    --card:     rgba(255,255,255,0.04);
+    --border:   rgba(255,255,255,0.08);
+    --white:    #f0f2ff;
+    --muted:    #7a80a0;
+
+    /* Vivid accent palette */
+    --gold:     #f5c842;
+    --coral:    #ff6b6b;
+    --teal:     #00e5c3;
+    --violet:   #a855f7;
+    --sky:      #38bdf8;
+
+    --grad-hero: linear-gradient(135deg, #f5c842 0%, #ff6b6b 50%, #a855f7 100%);
+    --grad-card: linear-gradient(135deg, rgba(245,200,66,0.15), rgba(168,85,247,0.08));
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+    line-height: 1.65;
+  }
+
+  /* ── Grain overlay ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.5;
+  }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+  /* ══════════ NAV ══════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 22px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.35s ease;
+  }
+  nav.scrolled {
+    background: rgba(7,8,15,0.88);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 5%;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.3rem;
+    text-decoration: none; color: var(--white);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span {
+    background: var(--grad-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 34px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; transition: color 0.2s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--grad-hero);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+
+  /* ══════════ HERO ══════════ */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 110px 5% 70px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 60% at 75% 45%, rgba(168,85,247,0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 20% 70%, rgba(0,229,195,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 10%, rgba(245,200,66,0.08) 0%, transparent 60%),
+      linear-gradient(160deg, #0e1120 0%, #07080f 60%);
+  }
+  /* Animated orbs */
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none; animation: drift 12s ease-in-out infinite alternate;
+  }
+  .orb-1 { width: 420px; height: 420px; top: -100px; right: 5%; background: rgba(168,85,247,0.18); animation-delay: 0s; }
+  .orb-2 { width: 300px; height: 300px; bottom: 0; left: 10%; background: rgba(0,229,195,0.12); animation-delay: -4s; }
+  .orb-3 { width: 200px; height: 200px; top: 40%; left: 40%; background: rgba(245,200,66,0.1); animation-delay: -8s; }
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -40px) scale(1.05); }
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 55px 55px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 60px; align-items: center;
+    width: 100%; max-width: 1100px; margin: 0 auto;
+  }
+  .hero-text { max-width: 610px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,200,66,0.08);
+    border: 1px solid rgba(245,200,66,0.28);
+    color: var(--gold);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 7px 18px; border-radius: 100px; margin-bottom: 28px;
+    animation: fadeUp 0.6s ease forwards; opacity: 0;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.6rem);
+    font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+    margin-bottom: 22px;
+    animation: fadeUp 0.6s 0.1s ease forwards; opacity: 0;
+  }
+  .hero-name .gradient-text {
+    background: var(--grad-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-tagline {
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    color: var(--muted); font-weight: 400; line-height: 1.75;
+    margin-bottom: 38px; max-width: 500px;
+    animation: fadeUp 0.6s 0.2s ease forwards; opacity: 0;
+  }
+  .hero-tagline strong { color: var(--white); font-weight: 500; }
+  .hero-cta {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease forwards; opacity: 0;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--grad-hero);
+    color: #07080f;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 14px 28px; border-radius: 6px; text-decoration: none;
+    transition: all 0.25s ease; border: none; cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(245,200,66,0.35); filter: brightness(1.08); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--white);
+    font-family: 'Syne', sans-serif; font-weight: 600;
+    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 14px 28px; border-radius: 6px; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.18); transition: all 0.25s ease; cursor: pointer;
+  }
+  .btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-3px); }
+
+  /* Photo */
+  .hero-photo { animation: fadeUp 0.7s 0.15s ease forwards; opacity: 0; }
+  .photo-frame {
+    width: 270px; height: 350px; position: relative; flex-shrink: 0;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute; inset: -2px;
+    background: var(--grad-hero);
+    border-radius: 14px; z-index: -1;
+  }
+  .photo-frame::after {
+    content: '';
+    position: absolute; bottom: -18px; right: -18px;
+    width: 100%; height: 100%;
+    border: 2px solid rgba(168,85,247,0.2);
+    border-radius: 14px; z-index: -2;
+  }
+  .photo-frame img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    border-radius: 12px; display: block;
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+    animation: fadeUp 0.6s 0.4s ease forwards; opacity: 0;
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 2.1rem; font-weight: 800; line-height: 1;
+    background: var(--grad-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    animation: bounce 2.2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+
+  /* ══════════ SECTIONS COMMON ══════════ */
+  section { padding: 100px 5%; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 14px;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--teal);
+  }
+  .section-label::before { content: ''; width: 28px; height: 2px; background: var(--teal); border-radius: 2px; }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.12;
+    margin-bottom: 56px;
+  }
+  .section-title em { font-style: normal; background: var(--grad-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  /* ══════════ ABOUT ══════════ */
+  #about { background: var(--surface); position: relative; overflow: hidden; }
+  #about::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,85,247,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: start; }
+  .about-body p {
+    color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 18px;
+  }
+  .about-body p strong { color: var(--white); font-weight: 500; }
+
+  /* Event tags */
+  .event-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .event-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0,229,195,0.08); border: 1px solid rgba(0,229,195,0.2);
+    color: var(--teal); font-size: 0.75rem; font-weight: 600;
+    padding: 5px 12px; border-radius: 100px; letter-spacing: 0.03em;
+    transition: all 0.2s;
+  }
+  .event-tag:hover { background: rgba(0,229,195,0.14); transform: translateY(-1px); }
+  .event-tag.violet { background: rgba(168,85,247,0.08); border-color: rgba(168,85,247,0.2); color: #c084fc; }
+  .event-tag.gold { background: rgba(245,200,66,0.08); border-color: rgba(245,200,66,0.2); color: var(--gold); }
+  .event-tag.coral { background: rgba(255,107,107,0.08); border-color: rgba(255,107,107,0.2); color: var(--coral); }
+
+  .edu-stack { display: flex; flex-direction: column; gap: 14px; }
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    border-image: var(--grad-hero) 1;
+    border-radius: 8px;
+    padding: 20px 24px;
+    backdrop-filter: blur(12px);
+    transition: transform 0.25s ease, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: var(--grad-hero); opacity: 0.3;
+  }
+  .edu-card:hover { transform: translateX(6px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+  .edu-inst { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+  .edu-detail { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; }
+  .edu-gpa {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(245,200,66,0.1); color: var(--gold);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 4px 12px; border-radius: 100px;
+  }
+
+  /* ══════════ INTERESTS ══════════ */
+  #interests { background: var(--bg); }
+  .interests-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+  .interest-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px 18px;
+    backdrop-filter: blur(12px); text-align: center;
+    transition: all 0.3s ease; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .interest-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--grad-hero); transform: scaleX(0); transition: transform 0.3s ease;
+  }
+  .interest-card:hover { transform: translateY(-7px); border-color: rgba(245,200,66,0.18); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  .interest-card:hover::after { transform: scaleX(1); }
+  .interest-icon {
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px; font-size: 1.25rem;
+    transition: all 0.3s;
+  }
+  .interest-card:nth-child(1) .interest-icon { background: rgba(245,200,66,0.12); color: var(--gold); }
+  .interest-card:nth-child(2) .interest-icon { background: rgba(0,229,195,0.1); color: var(--teal); }
+  .interest-card:nth-child(3) .interest-icon { background: rgba(168,85,247,0.1); color: var(--violet); }
+  .interest-card:nth-child(4) .interest-icon { background: rgba(255,107,107,0.1); color: var(--coral); }
+  .interest-card:nth-child(5) .interest-icon { background: rgba(56,189,248,0.1); color: var(--sky); }
+  .interest-card:nth-child(6) .interest-icon { background: rgba(245,200,66,0.12); color: var(--gold); }
+  .interest-card:nth-child(7) .interest-icon { background: rgba(0,229,195,0.1); color: var(--teal); }
+  .interest-card:nth-child(8) .interest-icon { background: rgba(168,85,247,0.1); color: var(--violet); }
+  .interest-card:nth-child(9) .interest-icon { background: rgba(255,107,107,0.1); color: var(--coral); }
+  .interest-name { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; line-height: 1.3; }
+
+  /* ══════════ ACHIEVEMENTS ══════════ */
+  #achievements { background: var(--surface); position: relative; overflow: hidden; }
+  #achievements::before {
+    content: '';
+    position: absolute; bottom: -300px; left: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,195,0.06), transparent 70%);
+    pointer-events: none;
+  }
+  .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 18px; }
+  .achievement-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 28px;
+    backdrop-filter: blur(14px);
+    transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+  }
+  .achievement-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .achievement-card:nth-child(1)::before { background: linear-gradient(90deg, var(--gold), var(--coral)); }
+  .achievement-card:nth-child(2)::before { background: linear-gradient(90deg, var(--teal), var(--sky)); }
+  .achievement-card:nth-child(3)::before { background: linear-gradient(90deg, var(--violet), var(--coral)); }
+  .achievement-card:nth-child(4)::before { background: linear-gradient(90deg, var(--sky), var(--teal)); }
+  .achievement-card:nth-child(5)::before { background: linear-gradient(90deg, var(--coral), var(--violet)); }
+  .achievement-card:nth-child(6)::before { background: linear-gradient(90deg, var(--gold), var(--teal)); }
+  .achievement-card:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.12); }
+  .ach-trophy { font-size: 2.1rem; margin-bottom: 14px; display: block; }
+  .ach-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; line-height: 1.35; }
+  .ach-meta { font-size: 0.77rem; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .ach-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 100px; margin-bottom: 12px;
+  }
+  .ach-badge.champion { background: rgba(245,200,66,0.12); color: var(--gold); border: 1px solid rgba(245,200,66,0.25); }
+  .ach-badge.finalist { background: rgba(56,189,248,0.1); color: var(--sky); border: 1px solid rgba(56,189,248,0.2); }
+  .ach-badge.best { background: rgba(0,229,195,0.1); color: var(--teal); border: 1px solid rgba(0,229,195,0.2); }
+  .ach-badge.winner { background: rgba(168,85,247,0.1); color: #c084fc; border: 1px solid rgba(168,85,247,0.2); }
+
+  /* ══════════ LEADERSHIP ══════════ */
+  #leadership { background: var(--bg); }
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--coral), var(--violet), transparent);
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; padding-bottom: 38px;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.5s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: -34px; top: 8px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--grad-hero);
+    box-shadow: 0 0 0 4px rgba(245,200,66,0.15), 0 0 12px rgba(245,200,66,0.3);
+  }
+  .tl-role { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.02rem; margin-bottom: 4px; }
+  .tl-org { font-size: 0.83rem; color: var(--teal); margin-bottom: 4px; font-weight: 500; }
+  .tl-type { font-size: 0.76rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+
+  /* ══════════ CONTACT ══════════ */
+  #contact { background: var(--surface); position: relative; overflow: hidden; }
+  #contact::before {
+    content: '';
+    position: absolute; top: -200px; right: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,200,66,0.07), transparent 70%);
+    pointer-events: none;
+  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-info p { color: var(--muted); font-size: 0.97rem; line-height: 1.8; margin-bottom: 32px; }
+  .social-links { display: flex; flex-direction: column; gap: 10px; }
+  .social-link {
+    display: flex; align-items: center; gap: 16px;
+    color: var(--muted); text-decoration: none; font-size: 0.87rem;
+    padding: 13px 18px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; transition: all 0.25s ease;
+  }
+  .social-link:hover { color: var(--white); border-color: rgba(245,200,66,0.3); transform: translateX(6px); background: rgba(245,200,66,0.04); }
+  .social-link i {
+    width: 36px; height: 36px;
+    background: rgba(245,200,66,0.1); color: var(--gold);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0; transition: background 0.25s;
+  }
+  .social-link:hover i { background: rgba(245,200,66,0.2); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .form-group input,
+  .form-group textarea {
+    background: rgba(14,17,32,0.7); border: 1px solid var(--border);
+    border-radius: 8px; padding: 13px 18px;
+    color: var(--white); font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color 0.2s; resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(122,128,160,0.5); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-success {
+    display: none; text-align: center; padding: 20px;
+    background: rgba(0,229,195,0.07); border: 1px solid rgba(0,229,195,0.2);
+    border-radius: 8px; color: var(--teal); font-size: 0.88rem;
+  }
+
+  /* ══════════ FOOTER ══════════ */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--border);
+    padding: 28px 5%; text-align: center;
+    color: var(--muted); font-size: 0.8rem; letter-spacing: 0.05em;
+  }
+  footer strong { background: var(--grad-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  /* ══════════ ANIMATIONS ══════════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(32px); transition: all 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ══════════ MOBILE ══════════ */
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links {
+      position: fixed; top: 0; right: -100%;
+      width: 260px; height: 100vh;
+      background: var(--surface); flex-direction: column;
+      justify-content: center; gap: 32px; padding: 40px;
+      border-left: 1px solid var(--border); transition: right 0.35s ease; z-index: 200;
+    }
+    .nav-links.open { right: 0; }
+    .nav-links a { font-size: 1rem; }
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-photo { order: -1; display: flex; justify-content: center; }
+    .photo-frame { width: 200px; height: 260px; }
+    .hero-cta { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-tagline { margin: 0 auto 36px; }
+    section { padding: 70px 5%; }
+    .orb { display: none; }
+  }
+  @media (max-width: 480px) {
+    .interests-grid { grid-template-columns: repeat(2, 1fr); }
+    .achievements-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">ERL<span>.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#interests">Interests</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><span class="dot"></span> Available for Opportunities</div>
+      <h1 class="hero-name">Enamul Rais<br><span class="gradient-text">Latifee</span></h1>
+      <p class="hero-tagline">
+        <strong>Second Year Student at BUET, IPE</strong> — Aspiring Industrial Engineer with a passion for leadership, systems thinking, and building things that work better.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+        <a href="#about" class="btn-outline"><i class="fas fa-user"></i> Learn More</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Awards</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Events Led</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <img src="image.jpg" alt="Enamul Rais Latifee at TEDx BUET">
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><i class="fas fa-chevron-down"></i><span>Scroll</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">Who I Am</div>
+    <h2 class="section-title reveal">My <em>Story</em> & Education</h2>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>I'm <strong>Enamul Rais Latifee</strong>, a second-year student of <strong>Industrial & Production Engineering (IPE)</strong> at <strong>Bangladesh University of Engineering & Technology (BUET)</strong> — the apex engineering institution in Bangladesh.</p>
+        <p>My journey is defined by a drive to lead, organize, and optimize. From heading debating clubs to coordinating large-scale events, I've consistently sought roles that blend <strong>technical rigor with human impact</strong>.</p>
+        <p>I'm passionate about how <strong>systems thinking, lean methodologies, and engineering principles</strong> can solve real-world industrial challenges. My goal is to shape a career at the intersection of technology, management, and innovation.</p>
+        <p>Beyond the classroom, I have arranged and co-organized numerous events — including <strong>শিল্পে গোলযোগ: IPE'24 Reception</strong>, <strong>বিতর্কের সাহিত্য</strong> (a National Debate Festival by CZSDC — Comilla Zilla School Debating Club), co-organized <strong>Hult Prize BUET 2026</strong>, <strong>TEDxBUET</strong>, and many other departmental and university events.</p>
+        <div class="event-tags">
+          <span class="event-tag"><i class="fas fa-palette"></i> শিল্পে গোলযোগ: IPE'24</span>
+          <span class="event-tag violet"><i class="fas fa-microphone"></i> বিতর্কের সাহিত্য</span>
+          <span class="event-tag gold"><i class="fas fa-trophy"></i> Hult Prize BUET 2026</span>
+          <span class="event-tag coral"><i class="fas fa-circle-play"></i> TEDxBUET</span>
+        </div>
+      </div>
+      <div class="edu-stack reveal">
+        <div class="edu-card">
+          <div class="edu-inst">Bangladesh University of Engineering & Technology</div>
+          <div class="edu-detail">B.Sc. in Industrial & Production Engineering (IPE) · 2023–Present</div>
+          <div class="edu-gpa"><i class="fas fa-university" style="font-size:0.6rem"></i> 2nd Year · BUET</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-inst">Notre Dame College, Dhaka</div>
+          <div class="edu-detail">Higher Secondary Certificate (HSC) · Science</div>
+          <div class="edu-gpa"><i class="fas fa-trophy" style="font-size:0.6rem"></i> GPA 5.00 / 5.00</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-inst">Comilla Zilla School</div>
+          <div class="edu-detail">Secondary School Certificate (SSC) · Science</div>
+          <div class="edu-gpa"><i class="fas fa-trophy" style="font-size:0.6rem"></i> GPA 5.00 / 5.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="container">
+    <div class="section-label">What Drives Me</div>
+    <h2 class="section-title reveal">Expertise &amp; <em>Interests</em></h2>
+    <div class="interests-grid">
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-car"></i></div>
+        <div class="interest-name">Automobile Industry</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-drafting-compass"></i></div>
+        <div class="interest-name">CAD Design</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-industry"></i></div>
+        <div class="interest-name">CAM Manufacturing</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-truck-fast"></i></div>
+        <div class="interest-name">Supply Chain Management</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-check-double"></i></div>
+        <div class="interest-name">Quality Control</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="interest-name">Management</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-users-gear"></i></div>
+        <div class="interest-name">Leadership</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-robot"></i></div>
+        <div class="interest-name">Automation</div>
+      </div>
+      <div class="interest-card reveal">
+        <div class="interest-icon"><i class="fas fa-atom"></i></div>
+        <div class="interest-name">Physics</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title reveal">Achievements &amp; <em>Awards</em></h2>
+    <div class="achievements-grid">
+      <div class="achievement-card reveal">
+        <span class="ach-trophy">🏆</span>
+        <div class="ach-badge champion"><i class="fas fa-crown" style="font-size:0.6rem"></i> Champion</div>
+        <div class="ach-title">Lean Sprint 3.0</div>
+        <div class="ach-meta"><i class="fas fa-calendar-alt"></i> 2026</div>
+      </div>
+      <div class="achievement-card reveal">
+        <span class="ach-trophy">🥇</span>
+        <div class="ach-badge champion"><i class="fas fa-crown" style="font-size:0.6rem"></i> Champion</div>
+        <div class="ach-title">Environmental Debate Competition</div>
+        <div class="ach-meta"><i class="fas fa-calendar-alt"></i> 2021</div>
+      </div>
+      <div class="achievement-card reveal">
+        <span class="ach-trophy">🎯</span>
+        <div class="ach-badge finalist"><i class="fas fa-medal" style="font-size:0.6rem"></i> Finalist</div>
+        <div class="ach-title">ResearchSparks: 3 Minutes Thesis</div>
+        <div class="ach-meta"><i class="fas fa-microscope"></i> Research Competition</div>
+      </div>
+      <div class="achievement-card reveal">
+        <span class="ach-trophy">🎤</span>
+        <div class="ach-badge finalist"><i class="fas fa-medal" style="font-size:0.6rem"></i> Finalist</div>
+        <div class="ach-title">CCPC National Debate Competition</div>
+        <div class="ach-meta"><i class="fas fa-calendar-alt"></i> 2019</div>
+      </div>
+      <div class="achievement-card reveal">
+        <span class="ach-trophy">🗣️</span>
+        <div class="ach-badge best"><i class="fas fa-star" style="font-size:0.6rem"></i> Best Debater</div>
+        <div class="ach-title">Debater's Hunt by CZSDC</div>
+        <div class="ach-meta"><i class="fas fa-calendar-alt"></i> 2018</div>
+      </div>
+      <div class="achievement-card reveal">
+        <span class="ach-trophy">🔬</span>
+        <div class="ach-badge winner"><i class="fas fa-award" style="font-size:0.6rem"></i> 3rd Prize</div>
+        <div class="ach-title">Upazilla Science Fest, Adarsha Sadar Comilla</div>
+        <div class="ach-meta"><i class="fas fa-calendar-alt"></i> 2019</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title reveal">Leadership &amp; <em>Roles</em></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-role">Batch Representative</div>
+        <div class="tl-org">Association of Industrial & Production Engineering (AIPE), BUET</div>
+        <div class="tl-type"><i class="fas fa-university"></i> University · Current</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-role">Former Class Representative</div>
+        <div class="tl-org">IPE '23, BUET</div>
+        <div class="tl-type"><i class="fas fa-university"></i> University · Former</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-role">Executive Member</div>
+        <div class="tl-org">BUET Entrepreneurship Development Club</div>
+        <div class="tl-type"><i class="fas fa-lightbulb"></i> Club · Current</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-role">Event Co-ordinator — TEDx BUET</div>
+        <div class="tl-org">TEDx, BUET</div>
+        <div class="tl-type"><i class="fas fa-microphone-alt"></i> University Event · Organised</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-role">Event Organiser — Hult Prize BUET 2026</div>
+        <div class="tl-org">Hult Prize On-Campus Programme, BUET</div>
+        <div class="tl-type"><i class="fas fa-trophy"></i> Global Competition · On-Campus Round</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-role">Organiser — Departmental &amp; University Events</div>
+        <div class="tl-org">IPE Department &amp; BUET</div>
+        <div class="tl-type"><i class="fas fa-calendar-check"></i> Multiple Events · Ongoing</div>
+      </div>
+      <div class="timeline-item" style="padding-bottom:0">
+        <div class="tl-role">Former President</div>
+        <div class="tl-org">Comilla Zilla School Debating Club (CZSDC)</div>
+        <div class="tl-type"><i class="fas fa-school"></i> School · Former</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title reveal">Let's <em>Connect</em></h2>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>I'm always open to interesting conversations, collaborations, or opportunities in industrial engineering, research, and leadership. Feel free to reach out through any channel below.</p>
+        <div class="social-links">
+          <a href="tel:+8801521786885" class="social-link">
+            <i class="fas fa-phone"></i>
+            <span>+880 1521 786 885</span>
+          </a>
+          <a href="https://wa.me/8801521786885" target="_blank" class="social-link">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp: +880 1521 786 885</span>
+          </a>
+          <a href="https://www.linkedin.com/in/enamul-rais-latifee-187111281" target="_blank" class="social-link">
+            <i class="fab fa-linkedin-in"></i>
+            <span>linkedin.com/in/enamul-rais-latifee</span>
+          </a>
+          <a href="https://github.com/abirlatifee71-hash" target="_blank" class="social-link">
+            <i class="fab fa-github"></i>
+            <span>github.com/abirlatifee71-hash</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="Your message..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%; justify-content:center">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+          <div class="form-success" id="formSuccess">
+            <i class="fas fa-check-circle" style="font-size:1.4rem; display:block; margin-bottom:8px"></i>
+            Message sent! I'll get back to you soon.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed &amp; Built by <strong>Enamul Rais Latifee</strong> · IPE, BUET · 2025</p>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  const revealEls = document.querySelectorAll('.reveal, .timeline-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const success = document.getElementById('formSuccess');
+    form.querySelectorAll('input, textarea').forEach(f => f.disabled = true);
+    form.querySelector('button').style.display = 'none';
+    success.style.display = 'block';
+    setTimeout(() => {
+      form.querySelectorAll('input, textarea').forEach(f => { f.disabled = false; f.value = ''; });
+      form.querySelector('button').style.display = 'flex';
+      success.style.display = 'none';
+    }, 4000);
+  }
+
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 140) current = section.getAttribute('id');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
